@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #container {
+            display: flex;
+            width: 300%;
+            height: 100vh;
+        }
+
+        .section {
+            flex: 1;
+            width: 33.333%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            position: relative;
+            /* Added this to position nested container */
+        }
+
+        .nested-container {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .nested-section {
+            width: 33.333%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section:nth-of-type(1) .nested-section:nth-of-type(1) {
+            background-color: lightpink;
+        }
+
+        .section:nth-of-type(1) .nested-section:nth-of-type(2) {
+            background-color: lightseagreen;
+        }
+
+        .section:nth-of-type(1) .nested-section:nth-of-type(3) {
+            background-color: lightgoldenrodyellow;
+        }
+
+        .section:nth-of-type(2) {
+            background-color: lightgreen;
+        }
+
+        .section:nth-of-type(3) {
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <div class="section">
+            <div class="nested-container" id="nested-container">
+                <div class="nested-section">First child</div>
+                <div class="nested-section">Second child</div>
+                <div class="nested-section">Third child</div>
+            </div>
+        </div>
+        <div class="section">Second section</div>
+        <div class="section">Third section</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.to("#nested-container", {
+            x: "-66.666%",
+            scrollTrigger: {
+                trigger: "#nested-container",
+                scrub: 1,
+                end: "200% center",
+                pin: true,
+            },
+        });
+
+        gsap.to("#container", {
+            x: "-66.666%",
+            scrollTrigger: {
+                trigger: "#container",
+                scrub: 1,
+                start: "200% top",
+                end: "500% center",
+                pin: true,
+            },
+        });
+    </script>
+</body>
+
+</html>
